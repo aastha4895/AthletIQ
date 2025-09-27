@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Plans • SportsForAll</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(255, 87, 34, 0.2);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #FF5722;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #FF7043;
+            transform: translateX(-5px);
+        }
+
+        .filters-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #FF5722;
+            color: white;
+            border-color: #FF5722;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+        }
+
+        .plan-premium::before {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-category {
+            background: #FF5722;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .plan-premium .plan-category {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .plan-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .plan-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: rgba(255, 87, 34, 0.05);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #FF5722;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .plan-features {
+            margin: 1.5rem 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: #4CAF50;
+            font-size: 1rem;
+        }
+
+        .plan-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #adb5bd);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+        }
+
+        .btn-premium:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .difficulty-beginner {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .difficulty-intermediate {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .difficulty-advanced {
+            background: rgba(244, 67, 54, 0.1);
+            color: #F44336;
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .progress-bar {
+            width: 60px;
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            border-radius: 2px;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #FFD700;
+            color: #333;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .create-plan-section {
+            background: linear-gradient(135deg, rgba(255, 87, 34, 0.1), rgba(255, 112, 67, 0.1));
+            border: 2px solid rgba(255, 87, 34, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .create-plan-section h3 {
+            color: #FF5722;
+            margin-bottom: 1rem;
+        }
+
+        .create-plan-section p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .plans-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .filter-options {
+                justify-content: center;
+            }
+
+            .plan-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .plan-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-medal"></i>
+                SportsForAll
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#profile" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="#analytics" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                <a href="#" onclick="logout()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header-banner">
+        <div class="container">
+            <div class="header-content">
+                <h1>Training Plans</h1>
+                <p>Personalized programs designed to elevate your athletic performance</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="dashboard.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-title">Filter Plans</div>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All Plans</button>
+                <button class="filter-btn" data-filter="strength">Strength</button>
+                <button class="filter-btn" data-filter="cardio">Cardio</button>
+                <button class="filter-btn" data-filter="flexibility">Flexibility</button>
+                <button class="filter-btn" data-filter="sports-specific">Sports Specific</button>
+                <button class="filter-btn" data-filter="beginner">Beginner</button>
+                <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+                <button class="filter-btn" data-filter="advanced">Advanced</button>
+            </div>
+        </div>
+
+        <!-- Training Plans Grid -->
+        <div class="plans-grid" id="plansGrid">
+            <!-- Beginner Plans -->
+            <div class="plan-card" data-category="strength" data-difficulty="beginner">
+                <div class="plan-header">
+                    <div>
+                        <div class="difficulty-badge difficulty-beginner">
+                            <i class="fas fa-star"></i> Beginner
+                        </div>
+                        <div class="plan-title">Foundation Strength</div>
+                        <div class="plan-description">Build basic strength and establish proper movement patterns</div>
+                    </div>
+                    <div class="plan-category">Strength</div>
+                </div>
+
+                <div class="plan-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Weeks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Days/Week</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">45</span>
+                        <span class="stat-label">Min/Session</span>
+                    </div>
+                </div>
+
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Basic compound movements</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Progressive overload introduction</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Form-focused exercises</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Video demonstrations</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="plan-actions">
+                    <button class="btn" onclick="startPlan('foundation-strength')">Start Plan</button>
+                    <button class="btn btn-secondary" onclick="previewPlan('foundation-strength')">Preview</button>
+                </div>
+            </div>
+
+            <div class="plan-card" data-category="cardio" data-difficulty="beginner">
+                <div class="plan-header">
+                    <div>
+                        <div class="difficulty-badge difficulty-beginner">
+                            <i class="fas fa-star"></i> Beginner
+                        </div>
+                        <div class="plan-title">Cardio Kickstart</div>
+                        <div class="plan-description">Improve cardiovascular fitness with low-impact exercises</div>
+                    </div>
+                    <div class="plan-category">Cardio</div>
+                </div>
+
+                <div class="plan-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Weeks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Days/Week</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">30</span>
+                        <span class="stat-label">Min/Session</span>
+                    </div>
+                </div>
+
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Walking & light jogging</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Heart rate zone training</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Recovery protocols</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Progress tracking</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="plan-actions">
+                    <button class="btn" onclick="startPlan('cardio-kickstart')">Start Plan</button>
+                    <button class="btn btn-secondary" onclick="previewPlan('cardio-kickstart')">Preview</button>
+                </div>
+            </div>
+
+            <!-- Intermediate Plans -->
+            <div class="plan-card" data-category="strength" data-difficulty="intermediate">
+                <div class="plan-header">
+                    <div>
+                        <div class="difficulty-badge difficulty-intermediate">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i> Intermediate
+                        </div>
+                        <div class="plan-title">Power Builder</div>
+                        <div class="plan-description">Develop explosive power and functional strength</div>
+                    </div>
+                    <div class="plan-category">Strength</div>
+                </div>
+
+                <div class="plan-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Weeks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Days/Week</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">60</span>
+                        <span class="stat-label">Min/Session</span>
+                    </div>
+                </div>
+
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Olympic lift variations</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Plyometric training</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Complex training methods</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Periodization structure</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="plan-actions">
+                    <button class="btn" onclick="startPlan('power-builder')">Start Plan</button>
+                    <button class="btn btn-secondary" onclick="previewPlan('power-builder')">Preview</button>
+                </div>
+            </div>
+
+            <div class="plan-card" data-category="sports-specific" data-difficulty="intermediate">
+                <div class="plan-header">
+                    <div>
+                        <div class="difficulty-badge difficulty-intermediate">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i> Intermediate
+                        </div>
+                        <div class="plan-title">Athletic Performance</div>
+                        <div class="plan-description">Sport-specific training for competitive athletes</div>
+                    </div>
+                    <div class="plan-category">Sports Specific</div>
+                </div>
+
+                <div class="plan-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Weeks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Days/Week</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">75</span>
+                        <span class="stat-label">Min/Session</span>
+                    </div>
+                </div>
+
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Multi-sport training</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Agility & speed work</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Mental conditioning</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Competition prep</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="plan-actions">
+                    <button class="btn" onclick="startPlan('athletic-performance')">Start Plan</button>
+                    <button class="btn btn-secondary" onclick="previewPlan('athletic-performance')">Preview</button>
+                </div>
+            </div>
+
+            <!-- Premium Advanced Plans -->
+            <div class="plan-card plan-premium" data-category="strength" data-difficulty="advanced">
+                <div class="premium-badge">Premium</div>
+                <div class="plan-header">
+                    <div>
+                        <div class="difficulty-badge difficulty-advanced">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Advanced
+                        </div>
+                        <div class="plan-title">Elite Strength</div>
+                        <div class="plan-description">Advanced powerlifting and strength development program</div>
+                    </div>
+                    <div class="plan-category">Strength</div>
+                </div>
+
+                <div class="plan-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">16</span>
+                        <span class="stat-label">Weeks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Days/Week</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">90</span>
+                        <span class="stat-label">Min/Session</span>
+                    </div>
+                </div>
+
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Advanced periodization</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>1-on-1 coach support</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Custom nutrition plan</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Recovery optimization</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="plan-actions">
+                    <button class="btn btn-premium" onclick="startPremiumPlan('elite-strength')">Unlock Premium</button>
+                    <button class="btn btn-secondary" onclick="previewPlan('elite-strength')">Preview</button>
+                </div>
+            </div>
+
+            <div class="plan-card" data-category="flexibility" data-difficulty="beginner">
+                <div class="plan-header">
+                    <div>
+                        <div class="difficulty-badge difficulty-beginner">
+                            <i class="fas fa-star"></i> Beginner
+                        </div>
+                        <div class="plan-title">Mobility Master</div>
+                        <div class="plan-description">Improve flexibility and movement quality</div>
+                    </div>
+                    <div class="plan-category">Flexibility</div>
+                </div>
+
+                <div class="plan-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Weeks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Days/Week</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25</span>
+                        <span class="stat-label">Min/Session</span>
+                    </div>
+                </div>
+
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Dynamic warm-ups</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Static stretching routines</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Yoga-inspired flows</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Injury prevention focus</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="plan-actions">
+                    <button class="btn" onclick="startPlan('mobility-master')">Start Plan</button>
+                    <button class="btn btn-secondary" onclick="previewPlan('mobility-master')">Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Custom Plan Section -->
+        <div class="create-plan-section">
+            <h3><i class="fas fa-magic"></i> Need a Custom Plan?</h3>
+            <p>Work with our expert coaches to create a personalized training program tailored specifically to your goals, schedule, and preferences.</p>
+            <button class="btn" onclick="requestCustomPlan()">
+                <i class="fas fa-user-cog"></i> Request Custom Plan
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const planCards = document.querySelectorAll('.plan-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active filter
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.dataset.filter;
+
+                    // Filter plans
+                    planCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const category = card.dataset.category;
+                            const difficulty = card.dataset.difficulty;
+                            
+                            if (category === filter || difficulty === filter) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Load user progress
+            loadUserProgress();
+        });
+
+        // Plan actions
+        function startPlan(planId) {
+            // Save plan selection
+            localStorage.setItem('sportsforall_active_plan', planId);
+            
+            alert(`🎯 Training Plan Started!\n\n✅ "${getPlanName(planId)}" has been added to your active programs.\n\n📱 You'll receive:\n• Daily workout notifications\n• Progress tracking\n• Form check reminders\n• Nutrition tips\n\nCheck your dashboard to start your first workout!`);
+            
+            // Redirect to dashboard or workout page
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 2000);
+        }
+
+        function previewPlan(planId) {
+            const planDetails = getPlanDetails(planId);
+            alert(`📋 Plan Preview: ${planDetails.name}\n\n📅 Program Structure:\n${planDetails.structure}\n\n🎯 Key Features:\n${planDetails.features}\n\n💪 Expected Results:\n${planDetails.results}`);
+        }
+
+        function startPremiumPlan(planId) {
+            alert(`⭐ Premium Plan Selected!\n\nUnlock advanced features:\n• 1-on-1 Coach Support\n• Custom Nutrition Plans\n• Advanced Analytics\n• Priority Support\n\n💳 Subscription: $19.99/month\n\nWould you like to upgrade to Premium access?`);
+        }
+
+        function requestCustomPlan() {
+            alert(`🏗️ Custom Plan Request\n\nOur expert coaches will create a personalized program based on:\n\n📝 Your Assessment:\n• Current fitness level\n• Available equipment\n• Schedule preferences\n• Specific goals\n• Injury history\n\n⏱️ Timeline: 24-48 hours\n💰 Cost: $49 (one-time fee)\n\nRedirecting to assessment form...`);
+            
+            // In a real app, this would redirect to a custom plan form
+            setTimeout(() => {
+                alert("Assessment form coming soon! For now, contact support@sportsforall.com");
+            }, 1500);
+        }
+
+        // Helper functions
+        function getPlanName(planId) {
+            const names = {
+                'foundation-strength': 'Foundation Strength',
+                'cardio-kickstart': 'Cardio Kickstart',
+                'power-builder': 'Power Builder',
+                'athletic-performance': 'Athletic Performance',
+                'elite-strength': 'Elite Strength',
+                'mobility-master': 'Mobility Master'
+            };
+            return names[planId] || 'Training Plan';
+        }
+
+        function getPlanDetails(planId) {
+            const details = {
+                'foundation-strength': {
+                    name: 'Foundation Strength',
+                    structure: '• Week 1-2: Movement patterns\n• Week 3-4: Load progression\n• 3 workouts per week\n• 45 minutes each',
+                    features: '• Beginner-friendly exercises\n• Video demonstrations\n• Progress tracking\n• Form tips',
+                    results: '• Improved strength base\n• Better movement quality\n• Increased confidence\n• Injury prevention'
+                },
+                'cardio-kickstart': {
+                    name: 'Cardio Kickstart',
+                    structure: '• Week 1-2: Base building\n• Week 3-4: Intensity increase\n• Week 5-6: Peak performance\n• 4 sessions per week',
+                    features: '• Heart rate monitoring\n• Low-impact options\n• Recovery protocols\n• Progress metrics',
+                    results: '• Better cardiovascular health\n• Increased endurance\n• Weight management\n• Energy boost'
+                }
+                // Add more plan details as needed
+            };
+            return details[planId] || { name: 'Plan', structure: 'Details coming soon...', features: 'Features coming soon...', results: 'Results coming soon...' };
+        }
+
+        function loadUserProgress() {
+            // Simulate loading user's current plans and progress
+            const activePlan = localStorage.getItem('sportsforall_active_plan');
+            if (activePlan) {
+                // Show progress indicators
+                console.log('User has active plan:', activePlan);
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to log out?')) {
+                localStorage.removeItem('sportsforall_logged_in');
+                localStorage.removeItem('sportsforall_login_time');
+                localStorage.removeItem('sportsforall_remember_me');
+                window.location.href = 'landing-page.html';
+            }
+        }
+
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('sportsforall_logged_in');
+        if (!isLoggedIn) {
+            window.location.href = 'auth.html?action=login';
+        }
+    </script>
+</body>
+</html>

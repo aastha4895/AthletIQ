@@ -1,0 +1,16 @@
+{
+  "name": "athletiq",
+  "version": "1.0.0",
+  "description": "Sports Talent Assessment Platform with AI Video Analysis",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "build": "echo 'Build complete'",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install"
+  },
+  "keywords": ["sports", "ai", "assessment", "video-analysis"],
+  "author": "Your Name",
+  "license": "MIT"
+}

@@ -1,0 +1,39 @@
+{
+  "name": "athletiq-admin-dashboard",
+  "version": "1.0.0",
+  "description": "AthletIQ Admin Dashboard for SAI Officials",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "axios": "^1.5.0",
+    "recharts": "^2.8.0",
+    "antd": "^5.9.0",
+    "@ant-design/icons": "^5.2.0",
+    "moment": "^2.29.4",
+    "react-query": "^3.39.3",
+    "react-table": "^7.8.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-scripts": "5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

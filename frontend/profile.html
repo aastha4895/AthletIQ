@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile • SportsForAll</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(255, 87, 34, 0.2);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #FF5722;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #FF7043;
+            transform: translateX(-5px);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-upload:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-subtitle {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .completion-progress {
+            margin: 1.5rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 87, 34, 0.05);
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #FF5722;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #FF5722;
+            box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #FF5722;
+        }
+
+        .skill-level {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .skill-option {
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skill-option:hover, .skill-option.selected {
+            background: #FF5722;
+            color: white;
+            border-color: #FF5722;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #FF5722, #FF7043);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #adb5bd);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .achievement-item {
+            background: rgba(255, 87, 34, 0.05);
+            border: 2px solid rgba(255, 87, 34, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            color: #FF5722;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-earned {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .achievement-earned .achievement-icon {
+            color: #4CAF50;
+        }
+
+        .save-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .save-notification.show {
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-level {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-medal"></i>
+                SportsForAll
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Profile</a>
+                <a href="trainingplans.html" class="nav-link"><i class="fas fa-dumbbell"></i> Training</a>
+                <a href="#analytics" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                <a href="#" onclick="logout()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header-banner">
+        <div class="container">
+            <div class="header-content">
+                <h1>Your Profile</h1>
+                <p>Complete your profile to unlock personalized training and coaching features</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="dashboard.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <div class="profile-grid">
+            <!-- Left Column: Profile Overview -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">
+                        <i class="fas fa-user"></i>
+                        <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(event)">
+                    </div>
+                    <div class="profile-name" id="profileName">Complete Your Profile</div>
+                    <div class="profile-subtitle" id="profileSubtitle">Athlete • SportsForAll Member</div>
+                </div>
+
+                <div class="completion-progress">
+                    <div class="progress-label">
+                        <span>Profile Completion</span>
+                        <span id="completionPercentage">25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="memberSince">1</span>
+                        <span class="stat-label">Days Active</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="videosAnalyzed">0</span>
+                        <span class="stat-label">Videos Analyzed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="trainingPlans">0</span>
+                        <span class="stat-label">Training Plans</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="achievements">1</span>
+                        <span class="stat-label">Achievements</span>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-trophy"></i>
+                        Recent Achievements
+                    </div>
+                    <div class="achievements-grid">
+                        <div class="achievement-item achievement-earned">
+                            <div class="achievement-icon">🎉</div>
+                            <div>Welcome!</div>
+                            <small>Joined SportsForAll</small>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">📝</div>
+                            <div>Profile Complete</div>
+                            <small>Complete your profile</small>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🎯</div>
+                            <div>First Goal</div>
+                            <small>Set your first goal</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Profile Form -->
+            <div class="profile-card">
+                <form id="profileForm" onsubmit="saveProfile(event)">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <div class="section-title">
+                            <i class="fas fa-user"></i>
+                            Personal Information
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" class="form-input" id="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" class="form-input" id="lastName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-input" id="dateOfBirth">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select" id="gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" id="phone">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-input" id="location" placeholder="City, Country">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Athletic Information -->
+                    <div class="form-section">
+                        <div class="section-title">
+                            <i class="fas fa-dumbbell"></i>
+                            Athletic Profile
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Primary Sport *</label>
+                                <select class="form-select" id="primarySport" required>
+                                    <option value="">Select Primary Sport</option>
+                                    <option value="football">Football</option>
+                                    <option value="basketball">Basketball</option>
+                                    <option value="tennis">Tennis</option>
+                                    <option value="running">Running</option>
+                                    <option value="swimming">Swimming</option>
+                                    <option value="cricket">Cricket</option>
+                                    <option value="badminton">Badminton</option>
+                                    <option value="volleyball">Volleyball</option>
+                                    <option value="cycling">Cycling</option>
+                                    <option value="gymnastics">Gymnastics</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Experience Level</label>
+                                <div class="skill-level">
+                                    <div class="skill-option" data-level="beginner">Beginner</div>
+                                    <div class="skill-option" data-level="intermediate">Intermediate</div>
+                                    <div class="skill-option" data-level="advanced">Advanced</div>
+                                </div>
+                                <input type="hidden" id="experienceLevel">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Secondary Sports (Check all that apply)</label>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sport-football" value="football">
+                                        <label for="sport-football">Football</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sport-basketball" value="basketball">
+                                        <label for="sport-basketball">Basketball</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sport-tennis" value="tennis">
+                                        <label for="sport-tennis">Tennis</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sport-running" value="running">
+                                        <label for="sport-running">Running</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sport-swimming" value="swimming">
+                                        <label for="sport-swimming">Swimming</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sport-cricket" value="cricket">
+                                        <label for="sport-cricket">Cricket</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Goals & Preferences -->
+                    <div class="form-section">
+                        <div class="section-title">
+                            <i class="fas fa-bullseye"></i>
+                            Goals & Preferences
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label class="form-label">Primary Goals (Check all that apply)</label>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="goal-fitness" value="fitness">
+                                        <label for="goal-fitness">General Fitness</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="goal-competition" value="competition">
+                                        <label for="goal-competition">Competition Preparation</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="goal-skill" value="skill">
+                                        <label for="goal-skill">Skill Development</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="goal-strength" value="strength">
+                                        <label for="goal-strength">Strength Building</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="goal-endurance" value="endurance">
+                                        <label for="goal-endurance">Endurance Training</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="goal-rehabilitation" value="rehabilitation">
+                                        <label for="goal-rehabilitation">Injury Rehabilitation</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Training Frequency</label>
+                                <select class="form-select" id="trainingFrequency">
+                                    <option value="">Select Frequency</option>
+                                    <option value="1-2">1-2 times per week</option>
+                                    <option value="3-4">3-4 times per week</option>
+                                    <option value="5-6">5-6 times per week</option>
+                                    <option value="daily">Daily</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Preferred Session Duration</label>
+                                <select class="form-select" id="sessionDuration">
+                                    <option value="">Select Duration</option>
+                                    <option value="30">30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                    <option value="60">1 hour</option>
+                                    <option value="90">1.5 hours</option>
+                                    <option value="120">2 hours</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medical Information -->
+                    <div class="form-section">
+                        <div class="section-title">
+                            <i class="fas fa-heartbeat"></i>
+                            Health & Medical Information
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" class="form-input" id="height" min="100" max="250">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Weight (kg)</label>
+                                <input type="number" class="form-input" id="weight" min="30" max="200">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Previous Injuries (Optional)</label>
+                                <textarea class="form-input" id="injuries" rows="3" placeholder="Describe any past injuries or medical conditions that might affect training..."></textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Additional Notes</label>
+                                <textarea class="form-input" id="additionalNotes" rows="3" placeholder="Any other information you'd like to share..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Profile
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                        <a href="dashboard.html" class="btn">
+                            <i class="fas fa-home"></i> Back to Dashboard
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Notification -->
+    <div class="save-notification" id="saveNotification">
+        <i class="fas fa-check"></i> Profile saved successfully!
+    </div>
+
+    <script>
+        let completionScore = 25;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserProfile();
+            setupEventListeners();
+            updateCompletionProgress();
+        });
+
+        function setupEventListeners() {
+            // Skill level selection
+            const skillOptions = document.querySelectorAll('.skill-option');
+            skillOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    skillOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    document.getElementById('experienceLevel').value = this.dataset.level;
+                    updateCompletionProgress();
+                });
+            });
+
+            // Form inputs for completion tracking
+            const formInputs = document.querySelectorAll('.form-input, .form-select, input[type="checkbox"]');
+            formInputs.forEach(input => {
+                input.addEventListener('change', updateCompletionProgress);
+                input.addEventListener('input', updateCompletionProgress);
+            });
+        }
+
+        async function loadUserProfile() {
+            try {
+                // Load user profile from backend
+                const response = await api.getProfile();
+                const userData = response.user || response;
+                
+                console.log('Loaded user data:', userData);
+
+                if (userData.name) {
+                    const nameParts = userData.name.split(' ');
+                    document.getElementById('firstName').value = nameParts[0] || '';
+                    document.getElementById('lastName').value = nameParts.slice(1).join(' ') || '';
+                    document.getElementById('profileName').textContent = userData.name;
+                }
+
+                // Load all profile fields
+                if (userData.dateOfBirth) {
+                    document.getElementById('dateOfBirth').value = userData.dateOfBirth.split('T')[0];
+                }
+                if (userData.gender) {
+                    document.getElementById('gender').value = userData.gender;
+                }
+                if (userData.phoneNumber) {
+                    document.getElementById('phone').value = userData.phoneNumber;
+                }
+                if (userData.location) {
+                    document.getElementById('location').value = userData.location;
+                }
+                if (userData.primarySport) {
+                    document.getElementById('primarySport').value = userData.primarySport;
+                }
+                if (userData.experienceLevel) {
+                    document.getElementById('experienceLevel').value = userData.experienceLevel;
+                    document.querySelector(`[data-level="${userData.experienceLevel}"]`)?.classList.add('selected');
+                }
+                if (userData.height) {
+                    document.getElementById('height').value = userData.height;
+                }
+                if (userData.weight) {
+                    document.getElementById('weight').value = userData.weight;
+                }
+                if (userData.trainingFrequency) {
+                    document.getElementById('trainingFrequency').value = userData.trainingFrequency;
+                }
+                if (userData.sessionDuration) {
+                    document.getElementById('sessionDuration').value = userData.sessionDuration;
+                }
+                if (userData.injuries) {
+                    document.getElementById('injuries').value = userData.injuries;
+                }
+                if (userData.additionalNotes) {
+                    document.getElementById('additionalNotes').value = userData.additionalNotes;
+                }
+
+                // Load goals checkboxes
+                if (userData.goals && Array.isArray(userData.goals)) {
+                    userData.goals.forEach(goal => {
+                        const checkbox = document.getElementById(`goal-${goal}`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+
+                // Load sports interests checkboxes
+                if (userData.sportsInterests && Array.isArray(userData.sportsInterests)) {
+                    userData.sportsInterests.forEach(sport => {
+                        const checkbox = document.getElementById(`sport-${sport}`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+
+                // Load stats
+                if (userData.createdAt) {
+                    const daysSince = Math.floor((Date.now() - new Date(userData.createdAt)) / (1000 * 60 * 60 * 24)) + 1;
+                    document.getElementById('memberSince').textContent = daysSince;
+                }
+
+                // Load assessments count
+                try {
+                    const assessments = await api.getAssessments();
+                    document.getElementById('videosAnalyzed').textContent = assessments.length || 0;
+                } catch (err) {
+                    console.log('Could not load assessments count');
+                }
+
+                // Update completion progress
+                updateCompletionProgress();
+
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                // Fallback to localStorage
+                const userData = JSON.parse(localStorage.getItem('sportsforall_user') || '{}');
+                
+                if (userData.fullName || userData.name) {
+                    const name = userData.fullName || userData.name;
+                    const nameParts = name.split(' ');
+                    document.getElementById('firstName').value = nameParts[0] || '';
+                    document.getElementById('lastName').value = nameParts.slice(1).join(' ') || '';
+                    document.getElementById('profileName').textContent = name;
+                }
+
+                const profileData = JSON.parse(localStorage.getItem('sportsforall_profile') || '{}');
+                Object.keys(profileData).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = profileData[key];
+                        } else {
+                            element.value = profileData[key];
+                        }
+                    }
+                });
+            }
+        }
+
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatar = document.getElementById('profileAvatar');
+                    avatar.innerHTML = `<img src="${e.target.result}" alt="Profile Picture"><div class="avatar-upload" onclick="document.getElementById('avatarInput').click()"><i class="fas fa-camera"></i></div>`;
+                    localStorage.setItem('sportsforall_avatar', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateCompletionProgress() {
+            const formInputs = document.querySelectorAll('.form-input, .form-select');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const skillLevel = document.getElementById('experienceLevel').value;
+
+            let filledFields = 0;
+            let totalFields = formInputs.length;
+
+            formInputs.forEach(input => {
+                if (input.value && input.value.trim() !== '') {
+                    filledFields++;
+                }
+            });
+
+            if (checkboxes.length > 0) filledFields += 2;
+            if (skillLevel) filledFields += 1;
+
+            totalFields += 3; // For checkboxes and skill level
+
+            completionScore = Math.round((filledFields / totalFields) * 100);
+            completionScore = Math.max(25, completionScore); // Minimum 25%
+
+            document.getElementById('completionPercentage').textContent = completionScore + '%';
+            document.getElementById('progressFill').style.width = completionScore + '%';
+
+            // Update profile name if first and last name are filled
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            if (firstName && lastName) {
+                document.getElementById('profileName').textContent = `${firstName} ${lastName}`;
+            }
+        }
+
+        async function saveProfile(event) {
+            event.preventDefault();
+            
+            const profileData = {};
+
+            // Collect all form data
+            const inputs = document.querySelectorAll('.form-input, .form-select');
+            inputs.forEach(input => {
+                if (input.value) {
+                    profileData[input.id] = input.value;
+                }
+            });
+
+            // Collect checkbox data for goals
+            const goals = [];
+            const goalCheckboxes = document.querySelectorAll('input[id^="goal-"]:checked');
+            goalCheckboxes.forEach(checkbox => {
+                goals.push(checkbox.value);
+            });
+
+            // Collect checkbox data for sports interests
+            const sportsInterests = [];
+            const sportCheckboxes = document.querySelectorAll('input[id^="sport-"]:checked');
+            sportCheckboxes.forEach(checkbox => {
+                sportsInterests.push(checkbox.value);
+            });
+
+            // Add primary sport to sports interests if not already included
+            if (profileData.primarySport && !sportsInterests.includes(profileData.primarySport)) {
+                sportsInterests.unshift(profileData.primarySport);
+            }
+
+            // Prepare backend-compatible data
+            const backendData = {
+                name: `${profileData.firstName || ''} ${profileData.lastName || ''}`.trim(),
+                dateOfBirth: profileData.dateOfBirth || null,
+                gender: profileData.gender || null,
+                phoneNumber: profileData.phone || null,
+                location: profileData.location || null,
+                primarySport: profileData.primarySport || null,
+                experienceLevel: document.getElementById('experienceLevel').value || null,
+                height: profileData.height ? parseInt(profileData.height) : null,
+                weight: profileData.weight ? parseInt(profileData.weight) : null,
+                goals: goals.length > 0 ? goals : null,
+                trainingFrequency: profileData.trainingFrequency || null,
+                sessionDuration: profileData.sessionDuration || null,
+                injuries: profileData.injuries || null,
+                additionalNotes: profileData.additionalNotes || null,
+                sportsInterests: sportsInterests.length > 0 ? sportsInterests : null
+            };
+
+            // Remove null values
+            Object.keys(backendData).forEach(key => {
+                if (backendData[key] === null || backendData[key] === '') {
+                    delete backendData[key];
+                }
+            });
+
+            console.log('Saving profile data:', backendData);
+
+            try {
+                // Save to backend
+                const response = await api.updateProfile(backendData);
+                console.log('Profile saved successfully:', response);
+                
+                // Show success notification
+                showSaveNotification();
+
+                // Update profile name display
+                if (backendData.name) {
+                    document.getElementById('profileName').textContent = backendData.name;
+                }
+
+                // Check for achievements
+                checkAchievements();
+
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                alert('Failed to save profile: ' + error.message);
+                
+                // Fallback to localStorage
+                localStorage.setItem('sportsforall_profile', JSON.stringify(profileData));
+                showSaveNotification();
+            }
+        }
+
+        function showSaveNotification() {
+            const notification = document.getElementById('saveNotification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function checkAchievements() {
+            // Profile completion achievement
+            if (completionScore >= 80) {
+                unlockAchievement('profile-complete');
+            }
+
+            // First goal achievement
+            const goalCheckboxes = document.querySelectorAll('input[id^="goal-"]:checked');
+            if (goalCheckboxes.length > 0) {
+                unlockAchievement('first-goal');
+            }
+        }
+
+        function unlockAchievement(achievementId) {
+            const achievements = JSON.parse(localStorage.getItem('sportsforall_achievements') || '[]');
+            if (!achievements.includes(achievementId)) {
+                achievements.push(achievementId);
+                localStorage.setItem('sportsforall_achievements', JSON.stringify(achievements));
+                
+                // Update UI
+                const achievementElement = document.querySelector(`[data-achievement="${achievementId}"]`);
+                if (achievementElement) {
+                    achievementElement.classList.add('achievement-earned');
+                }
+
+                // Show achievement notification
+                alert(`🎉 Achievement Unlocked!\n\n${getAchievementName(achievementId)}`);
+            }
+        }
+
+        function getAchievementName(achievementId) {
+            const names = {
+                'profile-complete': 'Profile Master - Complete your profile',
+                'first-goal': 'Goal Setter - Set your first training goal'
+            };
+            return names[achievementId] || 'New Achievement';
+        }
+
+        function resetForm() {
+            if (confirm('Are you sure you want to reset all form fields?')) {
+                document.getElementById('profileForm').reset();
+                document.querySelectorAll('.skill-option').forEach(opt => opt.classList.remove('selected'));
+                document.getElementById('experienceLevel').value = '';
+                updateCompletionProgress();
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to log out?')) {
+                api.logout();
+                window.location.href = 'landing-page.html';
+            }
+        }
+
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('sportsforall_logged_in');
+        if (!isLoggedIn) {
+            window.location.href = 'auth.html?action=login';
+        }
+    </script>
+    <script src="js/api.js"></script>
+</body>
+</html>
