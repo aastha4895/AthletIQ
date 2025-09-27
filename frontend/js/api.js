@@ -1,7 +1,7 @@
 // API Configuration
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:3001/api' 
-  : 'https://YOUR-RENDER-URL.onrender.com/api';
+  : 'https://athletiq-liqu.onrender.com/api';
 
 class APIService {
     constructor() {
