@@ -289,32 +289,38 @@ async function processAssessmentAsync(assessmentId) {
     setTimeout(async () => {
       try {
         // Perform AI analysis
-        const aiAnalysis = await analyzeVideo(assessment.videoUrl, assessment.testType);
-        const cheatDetection = await detectCheating(assessment.videoUrl, assessment.testType);
+        const aiAnalysis = await analyzeVideo(assessment.videoData.url, assessment.testType);
+        const cheatDetection = await detectCheating(assessment.videoData.url, assessment.testType);
+
+        // Determine status based on cheat detection
+        let finalStatus = 'approved';
+        if (cheatDetection && !cheatDetection.isClean) {
+          finalStatus = 'rejected';
+        }
 
         // Update assessment with results
         assessment.aiAnalysis = aiAnalysis;
         assessment.cheatDetection = cheatDetection;
+        assessment.status = finalStatus;
         
         await assessment.save();
 
-        // Update user stats if assessment is clean and completed
-        if (cheatDetection.isClean && assessment.status === 'completed') {
+        // Update user stats if assessment is clean and approved
+        if (finalStatus === 'approved' && aiAnalysis.numericScore) {
           const user = await User.findById(assessment.userId);
           if (user) {
-            const numericScore = assessment.numericScore;
-            user.updateStats(numericScore);
+            user.updateStats(aiAnalysis.numericScore);
             await user.save();
           }
         }
 
-        console.log(`Assessment ${assessmentId} processed successfully`);
+        console.log(`Assessment ${assessmentId} processed successfully with status: ${finalStatus}`);
       } catch (error) {
         console.error(`Error processing assessment ${assessmentId}:`, error);
         
-        // Update assessment status to failed
+        // Update assessment status to failed (not rejected)
         await Assessment.findByIdAndUpdate(assessmentId, {
-          status: 'rejected',
+          status: 'failed',
           'aiAnalysis.error': error.message
         });
       }

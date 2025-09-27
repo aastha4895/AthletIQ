@@ -24,17 +24,22 @@ class APIService {
         }
 
         try {
+            console.log('Making request to:', url);
             const response = await fetch(url, config);
-            const data = await response.json();
             
             if (!response.ok) {
-                console.error('API Error Response:', data);
-                throw new Error(data.details || data.error || 'API request failed');
+                const errorText = await response.text();
+                console.error('API Error Response:', response.status, errorText);
+                throw new Error(`HTTP ${response.status}: ${errorText}`);
             }
             
+            const data = await response.json();
             return data;
         } catch (error) {
             console.error('API Error:', error);
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                throw new Error('Cannot connect to server. Backend may be sleeping.');
+            }
             throw error;
         }
     }
@@ -59,17 +64,10 @@ class APIService {
 
     async register(userData) {
         console.log('Sending registration data:', userData);
-        try {
-            const data = await this.request('/auth/register', {
-                method: 'POST',
-                body: JSON.stringify(userData)
-            });
-            return data;
-        } catch (error) {
-            console.error('Registration failed with data:', userData);
-            console.error('Error details:', error);
-            throw error;
-        }
+        const data = await this.request('/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(userData)
+        });
         
         if (data.token) {
             this.token = data.token;
