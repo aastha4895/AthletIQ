@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: athletiq-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production

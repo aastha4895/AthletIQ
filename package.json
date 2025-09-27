@@ -4,9 +4,9 @@
   "description": "Sports Talent Assessment Platform with AI Video Analysis",
   "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "cd backend && npm install && node server.js",
     "dev": "nodemon backend/server.js",
-    "build": "echo 'Build complete'",
+    "build": "cd backend && npm install",
     "install-backend": "cd backend && npm install",
     "install-frontend": "cd frontend && npm install"
   },

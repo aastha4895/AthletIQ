@@ -1,7 +1,7 @@
 // API Configuration
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:3001/api' 
-  : 'https://athletiq-production.up.railway.app/api';
+  : 'https://YOUR-RENDER-URL.onrender.com/api';
 
 class APIService {
     constructor() {
